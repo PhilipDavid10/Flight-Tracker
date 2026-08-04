@@ -19,16 +19,8 @@ def get_flight_by_number(flight_number):
 
     if "error" in data:
         return None
-
-    flight = data["response"]
-
-
-    return Flight(
-        number=flight["flight_iata"],
-        airline=flight["airline_iata"],
-        departure=flight["dep_iata"],
-        arrival=flight["arr_iata"],
-        status=flight["status"])
+    else:
+        return data
 
 
 def get_flight_by_airport(airport_code):
