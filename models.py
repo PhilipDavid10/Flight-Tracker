@@ -20,3 +20,20 @@ class Flight():
             f"{self.number or 'unknown':<10} | {self.airline or 'unknown':<15} | "
             f"{route or 'unknown':<15} | {self.status or 'unknown':<12}"
         )
+
+    def to_dict(self):
+        return {
+            "number": self.number,
+            "airline": self.airline,
+            "departure": self.departure,
+            "arrival": self.arrival,
+            "status": self.status,
+            "aircraft": self.aircraft,
+            "altitude": self.altitude,
+            "speed": self.speed,
+            "heading": self.heading,
+            "longitude": self.longitude,
+            "latitude": self.latitude,
+            "dep_time": self.dep_time,
+            "arr_time": self.arr_time,
+        }

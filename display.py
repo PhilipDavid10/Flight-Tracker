@@ -45,5 +45,22 @@ def display_flights_from_airport(flights, airport_code):
     for flight in flights:
         print(flight)
 
+def display_history(history):
+    print("\nPrevious Search History")
+    print("-"*30)
+    print("")
 
-        
+    print(f"{'Flight':<10} | {'Airline':<20} | {'Route':<15} | {'Status':<12}")
+    print(f"-"*65)
+
+    for flight in history:
+        departure = flight.get("departure") or "unknown"
+        arrival = flight.get("arrival") or "unknown"
+        route = f"{departure} -> {arrival}"
+
+        print(
+            f"{flight.get('number') or 'unknown':<10} | "
+            f"{flight.get('airline') or 'unknown':<20} | "
+            f"{route:<15} | "
+            f"{flight.get('status') or 'unknown':<12}"
+        )

@@ -1,6 +1,9 @@
 from models import Flight
 
 def extract_singular_flight(data):
+    if data is None:
+        return None
+
     flight = data["response"]
     
     return Flight(
