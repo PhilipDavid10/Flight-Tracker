@@ -64,3 +64,14 @@ def display_history(history):
             f"{route:<15} | "
             f"{flight.get('status') or 'unknown':<12}"
         )
+
+def display_map_menu():
+    map_menu_options = ["Open Interactive Map","Back"]
+
+    print("-"*30)
+    print("")
+
+    for number,option in enumerate(map_menu_options, start=1):
+        print(f"{number}. {option}")
+
+    return input("Choice: ")

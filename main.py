@@ -1,8 +1,9 @@
-from display import show_menu, display_flights_from_airport, display_flight_details, display_history
+from display import show_menu, display_flights_from_airport, display_flight_details, display_history, display_map_menu
 from api import get_flight_by_airport
 from parser import extract_flights
 from search import find_flight
 from data.history import save_history, load_history
+from map import open_map
 
 
 def main():
@@ -17,6 +18,13 @@ def main():
             if flight:
                 display_flight_details(flight)
                 save_history(flight)
+
+            choice = display_map_menu()
+
+            if choice == "1":
+                open_map()
+            
+
 
         elif choice == "2":
             airport_code = input("\nEnter Airport Code (e.g. LHR): ")
@@ -33,6 +41,9 @@ def main():
             if flight:
                 display_flight_details(flight)
                 save_history(flight)
+
+            choice = display_map_menu()
+            
             
 
         elif choice == "3":
