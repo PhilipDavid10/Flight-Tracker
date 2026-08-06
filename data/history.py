@@ -1,12 +1,14 @@
 import json
 import os
 from models import Flight
+from pathlib import Path
 
 MAX_HISTORY = 20
+HISTORY_FILE = Path(__file__).parent / "history.json"
 
 def save_history(flight):
-    if os.path.exists("data/history.json"):
-        with open("data/history.json", "r") as file:
+    if HISTORY_FILE.exists():
+        with open(HISTORY_FILE, "r") as file:
             history = json.load(file)
     else:
         history = []
@@ -24,11 +26,11 @@ def save_history(flight):
     # keep only newest searches
     history = history[-MAX_HISTORY:]
 
-    with open("data/history.json", "w") as file:
+    with open(HISTORY_FILE, "w") as file:
         json.dump(history,file,indent=4)
 
 def load_history():
-    with open ("data/history.json", "r") as file:
+    with open (HISTORY_FILE, "r") as file:
         history = json.load(file)
 
     return history

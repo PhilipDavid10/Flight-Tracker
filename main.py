@@ -3,10 +3,12 @@ from api import get_flight_by_airport
 from parser import extract_flights
 from search import find_flight
 from data.history import save_history, load_history
-from map import open_map
+from flight_map import open_map
 
 
 def main():
+    tracked_flights = []
+
     while True:
         show_menu()
         choice = input("Choice: ")
@@ -19,10 +21,14 @@ def main():
                 display_flight_details(flight)
                 save_history(flight)
 
+                tracked_flights = [f for f in tracked_flights
+                                       if f.number != flight.number]
+                tracked_flights.append(flight)
+
             choice = display_map_menu()
 
             if choice == "1":
-                open_map()
+                open_map(tracked_flights)
             
 
 
@@ -42,10 +48,16 @@ def main():
                 display_flight_details(flight)
                 save_history(flight)
 
-            choice = display_map_menu()
+                tracked_flights = [f for f in tracked_flights
+                                                       if f.number != flight.number]
+                tracked_flights.append(flight)
+                
+                choice = display_map_menu()
+                
+                if choice == "1":
+                    open_map(tracked_flights)
             
             
-
         elif choice == "3":
             history = load_history()
             display_history(history)

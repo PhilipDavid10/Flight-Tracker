@@ -14,7 +14,7 @@ def get_flight_by_number(flight_number):
         FLIGHT_URL,
         params=params
     )
-
+    
     data = response.json()
 
     if "error" in data:
