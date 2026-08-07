@@ -4,7 +4,10 @@ def extract_singular_flight(data):
     if data is None:
         return None
 
-    flight = data["response"]
+    flight = data.get("response")
+
+    if flight is None:
+        return None
     
     return Flight(
                     number=flight.get("flight_iata"),

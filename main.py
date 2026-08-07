@@ -28,7 +28,6 @@ def main():
             choice = display_map_menu()
 
             if choice == "1":
-
                 open_map(tracked_flights)
             
 
