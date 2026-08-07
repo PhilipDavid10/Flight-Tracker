@@ -1,44 +1,67 @@
 import webbrowser
 import folium
-from parser import extract_airport
-from api import get_airports
+from airport_service import get_flight_airports
 
-def open_map(trackekd_flights):
-
+def create_map():
     m = folium.Map(location=[0,0], zoom_start=2)
+    return m
 
-    for flight in trackekd_flights:
+def add_flight_marker(m, flight):
+    if flight.latitude is None or flight.longitude is None:
+        return
 
-        if flight.longitude is None or flight.latitude is None:
-            continue
-
-        folium.Marker(location=[flight.latitude,flight.longitude],
-                    tooltip=f"{flight.number}",
-                    popup=f"Flight Code: {flight.number}",
-                    icon=folium.Icon(color='blue', prefix='fa', icon='plane')
-                    ).add_to(m)
-
-        dep_data = get_airports(flight.departure)
-        dep_airport = extract_airport(dep_data)
-
-        arr_data = get_airports(flight.arrival)
-        arr_airport = extract_airport(arr_data)
-
-        draw_flight_path(m, dep_airport, arr_airport, flight)
-
-        m.save("flight_map.html")
-
-        webbrowser.open("flight_map.html")
+    folium.Marker(location=[flight.latitude,flight.longitude],
+                        tooltip=f"{flight.number}",
+                        popup=f"Flight Code: {flight.number}",
+                        icon=folium.Icon(color='blue', prefix='fa', icon='plane')
+                        ).add_to(m)
 
 def draw_flight_path(m, dep_airport, arr_aiport, flight):
-    coordinates = [
-        [dep_airport["latitude"],dep_airport["longitude"]],
-        [flight.latitude,flight.longitude],
-        [arr_aiport["latitude"],arr_aiport["longitude"]]
-        ]
+    if (
+        flight.latitude is None
+        or flight.longitude is None
+        or dep_airport["latitude"] is None
+        or dep_airport["longitude"] is None
+        or arr_aiport["latitude"] is None
+        or arr_aiport["longitude"] is None
+    ):
+        return
+
+
+    coordinates = create_path_coordinates(dep_airport,arr_aiport,flight)
 
     folium.PolyLine(
         coordinates,
         weight=3,
         tooltip=f"{flight.number} flight path"
     ).add_to(m)
+
+
+def open_map(tracked_flights,filename="flight_map.html"):
+
+    m = create_map()
+
+    for flight in tracked_flights:
+        add_flight_marker(m, flight)
+        
+        dep_airport, arr_airport = get_flight_airports(flight)
+        draw_flight_path(m, dep_airport, arr_airport, flight)
+
+    m.save(filename)
+    webbrowser.open(filename)
+
+def create_path_coordinates(dep_airport, arr_airport, flight):
+    return [
+        [
+            dep_airport["latitude"],
+            dep_airport["longitude"]
+        ],
+        [
+            flight.latitude,
+            flight.longitude
+        ],
+        [
+            arr_airport["latitude"],
+            arr_airport["longitude"]
+        ]
+    ]

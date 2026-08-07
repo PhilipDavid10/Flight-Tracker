@@ -9,18 +9,21 @@ def get_flight_by_number(flight_number):
         "flight_iata": flight_number,
         "api_key": API_KEY
     }
+    try:
+        response = requests.get(
+            FLIGHT_URL,
+            params=params
+        )
+        
+        data = response.json()
 
-    response = requests.get(
-        FLIGHT_URL,
-        params=params
-    )
-    
-    data = response.json()
-
-    if "error" in data:
-        return None
-    else:
+        if "error" in data:
+            return None
+        
         return data
+
+    except requests.RequestException:
+        return None
 
 
 def get_flight_by_airport(airport_code):
@@ -28,18 +31,21 @@ def get_flight_by_airport(airport_code):
         "dep_iata": airport_code,
         "api_key": API_KEY
     }
+    try:
+        response = requests.get(
+            MULTIPLE_FLIGHTS_URL,
+            params=params
+        )
 
-    response = requests.get(
-        MULTIPLE_FLIGHTS_URL,
-        params=params
-    )
+        data = response.json()
 
-    data = response.json()
-
-    if "error" in data:
-        return None
-    else:
+        if "error" in data:
+            return None
+        
         return data
+
+    except requests.RequestException:
+        return None
     
 def get_airports(airport_code):
     params={
@@ -47,14 +53,18 @@ def get_airports(airport_code):
         "api_key": API_KEY
     }
 
-    response = requests.get(
-        AIRPORTS_URL,
-        params=params
-    )
+    try:
+        response = requests.get(
+            AIRPORTS_URL,
+            params=params
+        )
 
-    data = response.json()
+        data = response.json()
 
-    if "error" in data:
-        return None
-    else:
+        if "error" in data:
+            return None
+        
         return data
+
+    except requests.RequestException:
+        return None

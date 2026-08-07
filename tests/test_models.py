@@ -44,3 +44,22 @@ def test_flight_missing_optional_data():
     assert flight.arrival is None
     assert flight.latitude is None
     assert flight.longitude is None
+
+def test_flight_to_dict_location_data():
+    flight = Flight(
+        number="AA100",
+        airline="American Airlines",
+        latitude=40.5,
+        longitude=-70.2,
+        altitude=10000,
+        speed=500,
+        heading=90
+    )
+
+    result = flight.to_dict()
+
+    assert result["latitude"] == 40.5
+    assert result["longitude"] == -70.2
+    assert result["altitude"] == 10000
+    assert result["speed"] == 500
+    assert result["heading"] == 90

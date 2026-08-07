@@ -59,3 +59,23 @@ def test_extract_flight_not_found():
     result = extract_singular_flight(data)
 
     assert result is None
+
+def test_extract_flight_missing_keys():
+    data = {
+        "response": {
+            "flight_iata": "AA100"
+        }
+    }
+
+    flight = extract_singular_flight(data)
+
+    assert flight.number == "AA100"
+    assert flight.airline is None
+    assert flight.departure is None
+
+def test_empty_api_response():
+    data = {}
+
+    result = extract_singular_flight(data)
+
+    assert result is None

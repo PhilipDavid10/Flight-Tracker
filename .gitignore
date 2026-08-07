@@ -1,5 +1,12 @@
+# Environment
 .env
+
+# User Data
 data/history.json
+
+# Python
 __pycache__/
 *.pyc
+
+# Generated Files
 flight_map.html
