@@ -46,3 +46,13 @@ def extract_flights(data):
             ))
 
     return cleaned_flights
+
+def extract_airport(data):
+    airport = data["response"][0]
+
+    return {
+        "code": airport["iata_code"],
+        "longitude": airport["lng"],
+        "latitude": airport["lat"]
+    }
+    

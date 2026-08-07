@@ -6,4 +6,5 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 
 FLIGHT_URL = "https://airlabs.co/api/v9/flight"
-AIRPORT_URL = "https://airlabs.co/api/v9/flights"
+MULTIPLE_FLIGHTS_URL = "https://airlabs.co/api/v9/flights"
+AIRPORTS_URL = "https://airlabs.co/api/v9/airports"
