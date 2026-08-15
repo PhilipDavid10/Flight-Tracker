@@ -38,7 +38,7 @@ def get_flight_by_airport(airport_code):
         )
 
         data = response.json()
-
+        print(data)
         if "error" in data:
             return None
         

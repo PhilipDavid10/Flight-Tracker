@@ -42,9 +42,15 @@ def open_map(tracked_flights,filename="flight_map.html"):
     m = create_map()
 
     for flight in tracked_flights:
-        add_flight_marker(m, flight)
-        
+        if flight.latitude is None or flight.longitude is None:
+            continue
+               
         dep_airport, arr_airport = get_flight_airports(flight)
+
+        if dep_airport is None or arr_airport is None:
+            continue
+        
+        add_flight_marker(m, flight)
         draw_flight_path(m, dep_airport, arr_airport, flight)
 
     m.save(filename)

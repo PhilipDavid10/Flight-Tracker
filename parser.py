@@ -51,7 +51,14 @@ def extract_flights(data):
     return cleaned_flights
 
 def extract_airport(data):
-    airport = data["response"][0]
+    if data is None:
+        return None
+    airport = data.get("response")
+
+    if not airport:
+        return None
+
+    airport = airport[0]
 
     return {
         "code": airport["iata_code"],

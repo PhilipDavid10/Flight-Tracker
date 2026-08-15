@@ -10,3 +10,6 @@ __pycache__/
 
 # Generated Files
 flight_map.html
+
+# venv
+.venv/

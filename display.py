@@ -1,3 +1,6 @@
+from utils import display_value
+from config import ALTITUDE_UNIT, SPEED_UNIT
+
 def show_menu():
     print("\n========================")
     print("     Flight Tracker     ")
@@ -22,8 +25,8 @@ def display_flight_details(flight):
     print("\nLive Data")
     print("-"*20)
 
-    print(f"Altitude: {flight.altitude} m")
-    print(f"Speed: {flight.speed} km/h")
+    print(f"Altitude: {display_value(flight.altitude, ALTITUDE_UNIT)} ")
+    print(f"Speed: {display_value(flight.speed, SPEED_UNIT)}")
     print(f"Heading: {flight.heading}")
     print(f"Longitude: {flight.longitude}")
     print(f"Latitude: {flight.latitude}")
