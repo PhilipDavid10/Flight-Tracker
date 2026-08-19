@@ -39,7 +39,7 @@ def display_flight_details(flight):
     
 
 def display_flights_from_airport(flights, airport_code):
-    print(f"Flights from {airport_code}")
+    print(f"\nFlights from {airport_code}")
     print("-"*10)
 
     print(f"{'Flight':<10} | {'Airline':<15} | {'Route':<15} | {'Status':<12}")
